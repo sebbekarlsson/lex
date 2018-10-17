@@ -1,6 +1,13 @@
 #include "includes/io.h"
 
 
+/**
+ * Reads the content of a file
+ *
+ * @param char* filename
+ *
+ * @return char*
+ */
 char* read_file(char* filename) {
     char * buffer = 0;
     long length;
