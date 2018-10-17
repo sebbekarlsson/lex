@@ -71,7 +71,7 @@ token* lex_get_next_token(lex_state* state) {
             return init_token(_LBRACE, str);
         }
 
-        if (state->current_char == '{') {
+        if (state->current_char == '}') {
             lex_advance(state);
             return init_token(_RBRACE, str);
         }
