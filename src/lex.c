@@ -15,6 +15,11 @@ lex_state* lex_init(char* buffer) {
     return state;
 };
 
+/**
+ * Moves the cursor / position to the next position.
+ *
+ * @param lex_state* state
+ */
 void lex_advance(lex_state* state) {
     if (state->buffer[state->pos] != '\0') {
         state->pos += 1;
@@ -22,6 +27,11 @@ void lex_advance(lex_state* state) {
     }
 };
 
+/**
+ * Get the next token based on the position and the buffer
+ *
+ * @param lex_state* state
+ */
 token* lex_get_next_token(lex_state* state) {
     while (state->current_char != '\0') {
         char* str = char_to_string(state->current_char); 
@@ -93,6 +103,11 @@ token* lex_get_next_token(lex_state* state) {
     return init_token(_EOF, "");
 };
 
+/**
+ * Used to skip white space until we get to a interesting char.
+ *
+ * @param lex_state* state
+ */
 void lex_skip_whitespace(lex_state* state) {
     lex_advance(state);
 
@@ -100,6 +115,12 @@ void lex_skip_whitespace(lex_state* state) {
         lex_advance(state);
 };
 
+/**
+ * Parses an ID, this is quite vague but it is chunks of string which is
+ * alpha numerical.
+ *
+ * @param lex_state* state
+ */
 char* lex_parse_id(lex_state* state) {
     char* buff;
     char* charstr;
@@ -121,6 +142,12 @@ char* lex_parse_id(lex_state* state) {
     return buff;
 };
 
+/**
+ * Parses a number, basically a piece of string which is completely
+ * numerical
+ *
+ * @param lex_state* state
+ */
 char* lex_parse_number(lex_state* state) {
     char* buff;
     char* charstr;
