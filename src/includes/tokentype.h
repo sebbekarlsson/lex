@@ -17,6 +17,7 @@ typedef enum {
     _RBRACE = 13,
     _RETURN = 14,
     _IF = 15,
-    _ELSE = 16
+    _ELSE = 16,
+    _SEMI = 17
 } tokentype;
 #endif
