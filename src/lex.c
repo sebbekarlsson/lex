@@ -41,6 +41,41 @@ token* lex_get_next_token(lex_state* state) {
             return init_token(_OP_PLUS, str);
         }
 
+        if (state->current_char == '-') {
+            lex_advance(state);
+            return init_token(_OP_SUBTRACT, str);
+        }
+
+        if (state->current_char == '/') {
+            lex_advance(state);
+            return init_token(_OP_DIVIDE, str);
+        }
+
+        if (state->current_char == '*') {
+            lex_advance(state);
+            return init_token(_OP_MULTIPLY, str);
+        }
+
+        if (state->current_char == '(') {
+            lex_advance(state);
+            return init_token(_LPAREN, str);
+        }
+
+        if (state->current_char == ')') {
+            lex_advance(state);
+            return init_token(_RPAREN, str);
+        }
+
+        if (state->current_char == '{') {
+            lex_advance(state);
+            return init_token(_LBRACE, str);
+        }
+
+        if (state->current_char == '{') {
+            lex_advance(state);
+            return init_token(_RBRACE, str);
+        }
+
         if (isdigit(state->current_char)) {
             free(str);
             return init_token(_INTEGER, lex_parse_number(state));
