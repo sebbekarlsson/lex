@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "includes/io.h"
 #include "includes/lex.h"
 
 
 int main(int argc, char* argv[]) {
-    lex_state* state = lex_init("1 + 1 + x + x x x");
+    char* file_contents = read_file(argv[1]);
+    lex_state* state = lex_init(file_contents);
     token* tok; 
 
     while (1) {
@@ -22,6 +24,7 @@ int main(int argc, char* argv[]) {
     }
 
     free(state);
+    free(file_contents);
 
     return 0;
 };
