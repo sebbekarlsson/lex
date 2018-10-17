@@ -204,13 +204,17 @@ char* lex_parse_string(lex_state* state) {
     char* buff;
     char* charstr;
 
-    buff = calloc(0, sizeof(char*));
+    buff = calloc(2, sizeof(char*));
+    charstr = char_to_string(state->current_char);
+    strcat(buff, charstr);
+    lex_advance(state);
+    free(charstr);
 
-    while (state->current_char != '\0') {\
+    while (state->current_char != '\0') {
         if (state->current_char == '"')
             break;
 
-        buff = realloc(buff, sizeof(buff) + (sizeof(char) * 2));
+        buff = realloc(buff, strlen(buff) + (sizeof(char) * 2));
         charstr = char_to_string(state->current_char);
         strcat(buff, charstr);
         lex_advance(state);

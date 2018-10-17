@@ -10,7 +10,7 @@ char* read_file(char* filename) {
         fseek (f, 0, SEEK_END);
         length = ftell (f);
         fseek (f, 0, SEEK_SET);
-        buffer = malloc (length);
+        buffer = calloc (length, length);
         if (buffer)
             fread (buffer, 1, length, f);
 
