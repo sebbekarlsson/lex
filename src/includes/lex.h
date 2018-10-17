@@ -20,4 +20,6 @@ char* lex_parse_id(lex_state* state);
 
 char* lex_parse_number(lex_state* state);
 
+char* lex_parse_string(lex_state* state);
+
 #endif

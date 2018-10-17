@@ -86,6 +86,11 @@ token* lex_get_next_token(lex_state* state) {
             return init_token(_RBRACE, str);
         }
 
+        if (state->current_char == '"') {
+            free(str);
+            return init_token(_STRING, lex_parse_string(state));
+        }
+
         if (isdigit(state->current_char)) {
             free(str);
             return init_token(_INTEGER, lex_parse_number(state));
@@ -182,6 +187,37 @@ char* lex_parse_number(lex_state* state) {
 
         free(charstr);
     }
+
+    return buff;
+}
+
+/**
+ * Capture everything between `"`
+ *
+ * @param lex_state*
+ *
+ * @return char*
+ */
+char* lex_parse_string(lex_state* state) {
+    lex_advance(state);
+
+    char* buff;
+    char* charstr;
+
+    buff = calloc(0, sizeof(char*));
+
+    while (state->current_char != '\0') {\
+        if (state->current_char == '"')
+            break;
+
+        buff = realloc(buff, sizeof(buff) + (sizeof(char) * 2));
+        charstr = char_to_string(state->current_char);
+        strcat(buff, charstr);
+        lex_advance(state);
+        free(charstr);
+    }
+
+    lex_advance(state);
 
     return buff;
 }

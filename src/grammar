@@ -1,0 +1,16 @@
+# assignments
+ID EQUALS TYPE EXPR SEMI
+
+# functions
+ID EQUALS 'F' TYPE EXPECTED_ARGUMENTS LBRACE STATEMENT_LIST RBRACE SEMI
+
+# examples ...
+
+add = int function (int x, int y) {
+    return x + y;
+};
+
+myvar = int add();
+mystr = str "hello world";
+
+print(mystr + " " + myvar);
