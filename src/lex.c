@@ -32,6 +32,7 @@ token* lex_get_next_token(lex_state* state) {
 
         if (state->current_char == ' ') {
             lex_skip_whitespace(state);
+            free(str);
             continue;
         }
 
@@ -68,7 +69,7 @@ char* lex_parse_id(lex_state* state) {
     char* buff;
     char* charstr;
 
-    buff = malloc(sizeof(char) * 2);
+    buff = calloc(2, sizeof(char*));
     charstr = char_to_string(state->current_char);
     strcat(buff, charstr);
     lex_advance(state);
@@ -89,10 +90,11 @@ char* lex_parse_number(lex_state* state) {
     char* buff;
     char* charstr;
 
-    buff = malloc(sizeof(char) * 2);
+    buff = calloc(2, sizeof(char*));
     charstr = char_to_string(state->current_char);
     strcat(buff, charstr);
     lex_advance(state);
+    free(charstr);
 
     while (isdigit(state->current_char)) {
         buff = realloc(buff, sizeof(buff) + (sizeof(char) * 2));

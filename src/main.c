@@ -4,7 +4,7 @@
 
 
 int main(int argc, char* argv[]) {
-    lex_state* state = lex_init("x = 1 + 2 + 999.5 + 300 + 2 + 5.5 + 0.5");
+    lex_state* state = lex_init("1 + 1 + x + x x x");
     token* tok; 
 
     while (1) {
