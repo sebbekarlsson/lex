@@ -64,8 +64,7 @@ void lex_skip_whitespace(lex_state* state) {
 };
 
 char* lex_parse_id(lex_state* state) {
-    char* buff;
-    buff = malloc(sizeof(char) * 2);
+    char* buff = malloc(sizeof(char) * 2);
     buff[0] = state->current_char;
     buff[1] = '\0';
 
@@ -84,29 +83,24 @@ char* lex_parse_id(lex_state* state) {
 char* lex_parse_number(lex_state* state) {
     char* buff;
     buff = malloc(sizeof(char) * 2);
-    buff[0] = state->current_char;
-    buff[1] = '\0';
-    
+    strcat(buff, char_to_string(state->current_char));
     lex_advance(state);
 
     while (isdigit(state->current_char)) {
         buff = realloc(buff, sizeof(buff) + (sizeof(char) * 2));
-        buff[strlen(buff)] = state->current_char;
-        buff[strlen(buff)] = '\0';
+        strcat(buff, char_to_string(state->current_char));
         lex_advance(state);
     }
 
     // float
     if (state->current_char == '.') {
         buff = realloc(buff, sizeof(buff) + (sizeof(char) * 2));
-        buff[strlen(buff)] = state->current_char;
-        buff[strlen(buff)] = '\0';
+        strcat(buff, char_to_string(state->current_char));
         lex_advance(state);
 
         while (isdigit(state->current_char)) {
             buff = realloc(buff, sizeof(buff) + (sizeof(char) * 2));
-            buff[strlen(buff)] = state->current_char;
-            buff[strlen(buff)] = '\0';
+            strcat(buff, char_to_string(state->current_char));
             lex_advance(state);
         }
     }
