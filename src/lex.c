@@ -90,10 +90,25 @@ char* lex_parse_number(lex_state* state) {
     lex_advance(state);
 
     while (isdigit(state->current_char)) {
-        buff = malloc(strlen(buff)+1);
-        buff[sizeof(buff)] = state->current_char;
-        buff[sizeof(buff)+1] = '\0';
+        buff = realloc(buff, sizeof(buff) + (sizeof(char) * 2));
+        buff[strlen(buff)] = state->current_char;
+        buff[strlen(buff)] = '\0';
         lex_advance(state);
+    }
+
+    // float
+    if (state->current_char == '.') {
+        buff = realloc(buff, sizeof(buff) + (sizeof(char) * 2));
+        buff[strlen(buff)] = state->current_char;
+        buff[strlen(buff)] = '\0';
+        lex_advance(state);
+
+        while (isdigit(state->current_char)) {
+            buff = realloc(buff, sizeof(buff) + (sizeof(char) * 2));
+            buff[strlen(buff)] = state->current_char;
+            buff[strlen(buff)] = '\0';
+            lex_advance(state);
+        }
     }
 
     return buff;
