@@ -4,7 +4,7 @@
 #include "tokentype.h"
 
 
-typedef struct {
+typedef struct token {
     tokentype type;
     char* value;
 } token;

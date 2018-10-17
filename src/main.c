@@ -4,7 +4,7 @@
 
 
 int main(int argc, char* argv[]) {
-    lex_state* state = lex_init("1 + 2");
+    lex_state* state = lex_init("x = 1 + 2");
     token* tok; 
 
     while (1) {
@@ -18,6 +18,11 @@ int main(int argc, char* argv[]) {
         free(tok->value);
         free(tok);
     }
+
+    if (tok != ((void*)0))
+        free(tok);
+
+    free(state);
 
     return 0;
 };
