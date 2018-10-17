@@ -32,7 +32,6 @@ token* lex_get_next_token(lex_state* state) {
 
         if (state->current_char == ' ') {
             lex_skip_whitespace(state);
-            free(str);
             continue;
         }
 
@@ -42,10 +41,12 @@ token* lex_get_next_token(lex_state* state) {
         }
 
         if (isdigit(state->current_char)) {
+            free(str);
             return init_token(_INTEGER, lex_parse_number(state));
         }
 
         if (isalnum(state->current_char)) {
+            free(str);
             return init_token(_ID, lex_parse_id(state));
         }
 
@@ -64,17 +65,21 @@ void lex_skip_whitespace(lex_state* state) {
 };
 
 char* lex_parse_id(lex_state* state) {
-    char* buff = malloc(sizeof(char) * 2);
-    buff[0] = state->current_char;
-    buff[1] = '\0';
+    char* buff;
+    char* charstr;
 
+    buff = malloc(sizeof(char) * 2);
+    charstr = char_to_string(state->current_char);
+    strcat(buff, charstr);
     lex_advance(state);
+    free(charstr);
 
     while (isalnum(state->current_char)) {
-        buff = malloc(strlen(buff)+1);
-        buff[sizeof(buff)] = state->current_char;
-        buff[sizeof(buff)+1] = '\0';
+        buff = realloc(buff, sizeof(buff) + (sizeof(char) * 2));
+        charstr = char_to_string(state->current_char);
+        strcat(buff, charstr);
         lex_advance(state);
+        free(charstr);
     }
 
     return buff;
@@ -82,27 +87,36 @@ char* lex_parse_id(lex_state* state) {
 
 char* lex_parse_number(lex_state* state) {
     char* buff;
+    char* charstr;
+
     buff = malloc(sizeof(char) * 2);
-    strcat(buff, char_to_string(state->current_char));
+    charstr = char_to_string(state->current_char);
+    strcat(buff, charstr);
     lex_advance(state);
 
     while (isdigit(state->current_char)) {
         buff = realloc(buff, sizeof(buff) + (sizeof(char) * 2));
-        strcat(buff, char_to_string(state->current_char));
+        charstr = char_to_string(state->current_char);
+        strcat(buff, charstr);
         lex_advance(state);
+        free(charstr);
     }
 
     // float
     if (state->current_char == '.') {
         buff = realloc(buff, sizeof(buff) + (sizeof(char) * 2));
-        strcat(buff, char_to_string(state->current_char));
+        charstr = char_to_string(state->current_char);
+        strcat(buff, charstr);
         lex_advance(state);
 
         while (isdigit(state->current_char)) {
             buff = realloc(buff, sizeof(buff) + (sizeof(char) * 2));
-            strcat(buff, char_to_string(state->current_char));
+            charstr = char_to_string(state->current_char);
+            strcat(buff, charstr);
             lex_advance(state);
         }
+
+        free(charstr);
     }
 
     return buff;
