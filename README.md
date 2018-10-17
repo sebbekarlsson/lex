@@ -16,3 +16,8 @@
 
 ## Unit test
 > Coming soon!
+
+## Notes
+> This might become a new cool programming language later, so I would suggest
+> to not depend on this project somehow. Feel free to copy the source code
+> though.
