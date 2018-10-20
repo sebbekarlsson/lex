@@ -1,0 +1,40 @@
+// defining a function
+add = int (int x, int y) {
+    return x + y;
+};
+
+// defining a function
+something = int (int x) {
+    myvar = int 300;
+    myothervar = int add(x, myvar);
+};
+
+// creating a list
+mylist = list<int> [300, 500, 100];
+
+// this will iterate the list and execute `something` on every item
+// when it is done, it will return the modified list.
+modified_list = array<int> iterate mylist with something;
+
+// this can also be executed with multiple functions, example:
+modified_list = array<int> iterate mylist with something & otherfunc & another;
+
+// looping
+iterate mylist as x {
+    // x is exposed here
+    // x is the current item in the loop
+}
+
+// looping
+iterate mylist as x with something {
+    // something(x) is exposed here
+    // x is the current item in the loop
+}
+
+// looping
+modified_list = array<int> iterate mylist as x {
+    // x is the current item in the loop
+
+    // this will be added to the returned list
+    yield x * 4;
+}

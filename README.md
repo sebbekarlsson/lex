@@ -21,3 +21,24 @@
 > This might become a new cool programming language later, so I would suggest
 > to not depend on this project somehow. Feel free to copy the source code
 > though.
+
+
+add = int (int x, int y) {
+    return x * y;    
+};
+
+something = int (int x) {
+    myvar = int 300;
+    myothervar = int add(x, myvar);
+};
+
+mylist =  array<int> [300, 500, 100];
+
+// this will iterate the list and execute `something` on every item
+// when it is done, it will return the modified list.
+modified_list = array<int> iterate mylist with something;
+
+iterate mylist as x with something {
+    // something(x) is exposed here
+    // x is the current item in the loop   
+}
